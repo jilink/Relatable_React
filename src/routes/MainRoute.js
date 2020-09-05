@@ -17,15 +17,12 @@ function MainRoute() {
 
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/en" />
+                        <Home />
                     </Route>
                     <Route path="/about">
                         <Home />
                     </Route>
                     <Route path="/users">
-                        <Home />
-                    </Route>
-                    <Route path="/en">
                         <Home />
                     </Route>
                 </Switch>
