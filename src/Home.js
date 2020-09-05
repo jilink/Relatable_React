@@ -1,9 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-import { Navbar, Nav, FormControl, Button, Form } from 'react-bootstrap';
+
+import { I18nProvider, LOCALES } from './i18n';
+import translate from './i18n/translate';
 
 function App() {
+    const locale = localStorage.getItem('locale') || LOCALES.ENGLISH
   return (
     <div className="App">
     </div>

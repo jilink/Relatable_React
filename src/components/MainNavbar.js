@@ -8,14 +8,16 @@ import translate from '../i18n/translate';
 function MainNavbar(){
     function swapLanguage () {
         if (locale===LOCALES.FRENCH) {
-            setLocale(LOCALES.ENGLISH)
+            localStorage.setItem('locale', LOCALES.ENGLISH);
+            window.location.reload(false);
         }
         else {
-            setLocale(LOCALES.FRENCH)
+            localStorage.setItem('locale', LOCALES.FRENCH);
+            window.location.reload(false);
         }
 
     }
-    const [locale, setLocale] = useState(LOCALES.ENGLISH);
+    const locale = localStorage.getItem('locale') || LOCALES.ENGLISH
     return (
         <I18nProvider locale={locale}>
             <Navbar bg="light" variant="light">
