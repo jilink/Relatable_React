@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.catchphrase {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.logo {
+  font-family: Impact, Charcoal, sans-serif;
+  color: #66ccff !important;
+}
