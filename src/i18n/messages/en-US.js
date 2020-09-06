@@ -7,6 +7,8 @@ export default {
         'catchphrase': 'You\'re not the only one',
         'browse': 'Browse',
         'create': 'Create',
-
+        'relatable?': 'Is this relatable?',
+        'so_relatable': 'So relatable!',
+        'not_relatable': 'Not relatable ...',
     }
 }
