@@ -10,5 +10,6 @@ export default {
         'relatable?': 'Is this relatable?',
         'so_relatable': 'So relatable!',
         'not_relatable': 'Not relatable ...',
+        'submit': 'Submit',
     }
 }

@@ -10,5 +10,6 @@ export default {
         'relatable?': 'Est-ce que ça vous ressemble ?',
         'so_relatable': 'Trop vrai !',
         'not_relatable': 'bof bof ...',
+        'submit': 'Valider',
     }
 }
