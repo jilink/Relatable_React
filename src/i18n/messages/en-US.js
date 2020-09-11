@@ -11,5 +11,7 @@ export default {
         'so_relatable': 'So relatable!',
         'not_relatable': 'Not relatable ...',
         'submit': 'Submit',
+        'next': 'Next',
+        'percentage': '{percentage}% ({number}) of people thought this was relatable!',
     }
 }

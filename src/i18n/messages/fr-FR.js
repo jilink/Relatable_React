@@ -11,5 +11,7 @@ export default {
         'so_relatable': 'Trop vrai !',
         'not_relatable': 'bof bof ...',
         'submit': 'Valider',
+        'next': 'Suivant',
+        'percentage': '{percentage}% ({number}) des gens ont trouvé que ça leur ressemblait !',
     }
 }
