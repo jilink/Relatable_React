@@ -23,10 +23,13 @@ class Browse extends React.Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         }
+
+        this.keys=[];
     }
 
     componentWillMount() {
         const ref = firebase.database().ref('fr')
+        this.findPost(ref)
         ref.on('value', snapshot => {
             this.setState({
                 post: snapshot.val()[1],
@@ -36,6 +39,44 @@ class Browse extends React.Component {
             })
         })
     }
+
+    findPost(ref){
+        const CHANCE_UP = 70
+        const CHANCE_TIMESTAMP = 30
+        // computing the percentage of change for each type of post
+        const random = Math.floor(Math.random() * ( 100 + 1));
+        if (random < CHANCE_UP) {
+            console.log("up")
+            this.findByUp(ref, 'up')
+        }
+        else if (random >=  CHANCE_UP && random <= CHANCE_UP + CHANCE_TIMESTAMP) {
+            console.log("STAMP")
+            this.findByUp(ref, 'timestamp')
+        }
+
+
+    }
+
+    findByUp(ref, key) {
+        const refChild = ref.orderByChild(key)
+        let post = undefined;
+        refChild.on('value', snapshot => {
+            const count =  snapshot.numChildren()
+            const randomPost = Math.floor(Math.random() * (count/2 + 1)) + 1;
+            refChild.limitToLast(randomPost).on('value', snapshotup => {
+                snapshotup.forEach(snap => {
+                    let data = snap.val();
+                    if (!this.keys.includes(snap.key) && !post){
+                        console.log("post", data.text)
+                        this.keys.push(snap.key)
+                        post = data;
+                    }
+                })
+            })
+        })
+    
+    }
+
 
     handleClick(type) {
         this.setState({loading: true})
@@ -64,6 +105,7 @@ class Browse extends React.Component {
                         post: snapshot.val()[1],
                     })
                 })
+                this.findPost(ref)
                 break;
             default:
                 this.setState({
