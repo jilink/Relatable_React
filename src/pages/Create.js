@@ -6,6 +6,9 @@ import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { I18nProvider, LOCALES } from '../i18n';
 import translate from '../i18n/translate';
 
+import * as firebase from 'firebase'
+import config from '../config'
+
 class Create extends React.Component {
 
     constructor(props) {
@@ -19,6 +22,10 @@ class Create extends React.Component {
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config)
+        }
     }
 
     handleChangeText(event) {
@@ -34,8 +41,23 @@ class Create extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.username);
-        alert('A name was submitted I mean text: ' + this.state.relatableText);
+        const today = new Date();
+        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        firebase.database().ref('fr').push().set({
+            username: this.state.username,
+            text: this.state.relatableText,
+            up: 0,
+            down: 0,
+            date: date,
+            id: Math.random().toString(36).substr(2, 9),
+        })
+        .then((doc) => {
+            alert('ok ' + this.state.username);
+        })
+        .catch((error) => {
+                console.error(error);
+        })
+
         event.preventDefault();
     }
 
