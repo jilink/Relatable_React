@@ -27,39 +27,41 @@ class Browse extends React.Component {
 
     componentWillMount() {
         const ref = firebase.database().ref('fr')
-        console.log("coucouuu")
         ref.on('value', snapshot => {
             this.setState({
-                post: snapshot.val()[0],
+                post: snapshot.val()[1],
                 loading: false,
-                percentage: snapshot.val()[0].up / (snapshot.val()[0].up + snapshot.val()[0].down) * 100,
+                // division par 0 attention
+                percentage: Math.round(snapshot.val()[1].up / (snapshot.val()[1].up + snapshot.val()[1].down) * 100),
             })
         })
     }
 
     handleClick(type) {
         this.setState({loading: true})
+        const ref = firebase.database().ref('fr')
+        let key = '0'
+        ref.on('value', snapshot => {
+            key = Object.keys(snapshot.val())[0]
+        })
+        const postRef =  firebase.database().ref('fr/' + key)
+        let updates = {}
+        console.log(key)
         switch(type) {
             case 'up':
-                this.setState({
-                    showResult: !this.state.showResult,
-                    loading: false,
+                postRef.on('value', snapshot => {
+                    updates['fr/' + key + '/up'] = snapshot.val().up + 1
                 })
                 break;
             case 'down':
-                this.setState({
-                    showResult: !this.state.showResult,
-                    loading: false,
+                postRef.on('value', snapshot => {
+                    updates['fr/' + key + '/down'] = snapshot.val().down + 1
                 })
                 break;
             case 'next':
-                const ref = firebase.database().ref('fr')
                 ref.on('value', snapshot => {
                     this.setState({
-                        showResult: !this.state.showResult,
                         post: snapshot.val()[1],
-                        percentage: snapshot.val()[1].up / (snapshot.val()[1].up + snapshot.val()[1].down) * 100,
-                        loading: false,
                     })
                 })
                 break;
@@ -69,6 +71,15 @@ class Browse extends React.Component {
                 })
                 break;
         }
+
+        firebase.database().ref().update(updates)
+        ref.on('value', snapshot => {
+            this.setState({
+                showResult: !this.state.showResult,
+                loading: false,
+                percentage: Math.round(snapshot.val()[1].up / (snapshot.val()[1].up + snapshot.val()[1].down) * 100),
+            })
+        })
     }
 
     render(){
