@@ -49,6 +49,7 @@ class Create extends React.Component {
             up: 0,
             down: 0,
             date: date,
+            timestamp: Date.now(),
             id: Math.random().toString(36).substr(2, 9),
         })
         .then((doc) => {
