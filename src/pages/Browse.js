@@ -20,6 +20,8 @@ class Browse extends React.Component {
         };
 
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
+        this.category = "general"
+        this.path = this.locale + '/' + this.category
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         }
@@ -29,7 +31,7 @@ class Browse extends React.Component {
     }
 
     componentWillMount() {
-        const ref = firebase.database().ref('fr')
+        const ref = firebase.database().ref(this.path)
         this.findPost(ref)
     }
 
@@ -82,20 +84,20 @@ class Browse extends React.Component {
 
     handleClick(type) {
         this.setState({loading: true})
-        const ref = firebase.database().ref('fr')
-        const postRef =  firebase.database().ref('fr/' + this.currentKey)
+        const ref = firebase.database().ref(this.path)
+        const postRef =  firebase.database().ref(this.path + '/' + this.currentKey)
         let updates = {}
         switch(type) {
             case 'up':
                 postRef.once('value', snapshot => {
-                    updates['fr/' + this.currentKey + '/up'] = snapshot.val().up + 1
+                    updates[this.path + '/' + this.currentKey + '/up'] = snapshot.val().up + 1
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up + 1, this.state.post.down)
                 break;
             case 'down':
                 postRef.once('value', snapshot => {
-                    updates['fr/' + this.currentKey + '/down'] = snapshot.val().down + 1
+                    updates[this.path + '/' + this.currentKey + '/down'] = snapshot.val().down + 1
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up, this.state.post.down + 1)

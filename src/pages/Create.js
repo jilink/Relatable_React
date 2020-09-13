@@ -22,6 +22,7 @@ class Create extends React.Component {
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
+        this.category = "general"
 
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
@@ -43,7 +44,7 @@ class Create extends React.Component {
     handleSubmit(event) {
         const today = new Date();
         const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        firebase.database().ref('fr').push().set({
+        firebase.database().ref(this.locale +'/' + this.category ).push().set({
             username: this.state.username,
             text: this.state.relatableText,
             up: 0,
@@ -53,7 +54,7 @@ class Create extends React.Component {
             id: Math.random().toString(36).substr(2, 9),
         })
         .then((doc) => {
-            alert('ok ' + this.state.username);
+            window.location.reload(false);
         })
         .catch((error) => {
                 console.error(error);
