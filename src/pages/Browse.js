@@ -39,11 +39,9 @@ class Browse extends React.Component {
         // computing the percentage of change for each type of post
         const random = Math.floor(Math.random() * ( 100 + 1));
         if (random < CHANCE_UP) {
-            console.log("up")
             this.findByKey(ref, 'up')
         }
         else if (random >=  CHANCE_UP && random <= CHANCE_UP + CHANCE_TIMESTAMP) {
-            console.log("STAMP")
             this.findByKey(ref, 'timestamp')
         }
 
@@ -53,21 +51,22 @@ class Browse extends React.Component {
     findByKey(ref, key) {
         const refChild = ref.orderByChild(key)
         let post = undefined;
-        refChild.on('value', snapshot => {
+        refChild.once('value', snapshot => {
             const count =  snapshot.numChildren()
             const randomPost = Math.floor(Math.random() * (count/2 + 1)) + 1;
-            refChild.limitToLast(randomPost).on('value', snapshotup => {
+            const refChildLimit = refChild.limitToLast(randomPost)
+            refChildLimit.once('value', snapshotup => {
                 snapshotup.forEach(snap => {
                     let data = snap.val();
                     if (!this.keys.includes(snap.key) && !post){
-                        console.log("post", data.text)
                         this.keys.push(snap.key)
                         this.currentKey = snap.key
                         post = data;
                     }
                 })
                 if (!post) {
-                    window.location.reload(false);
+                    this.keys = [];
+                    this.findByKey(ref, key)
                 }
                 else {
                     this.setState({
@@ -88,14 +87,16 @@ class Browse extends React.Component {
         let updates = {}
         switch(type) {
             case 'up':
-                postRef.on('value', snapshot => {
+                postRef.once('value', snapshot => {
                     updates['fr/' + this.currentKey + '/up'] = snapshot.val().up + 1
+                    firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up + 1, this.state.post.down)
                 break;
             case 'down':
-                postRef.on('value', snapshot => {
+                postRef.once('value', snapshot => {
                     updates['fr/' + this.currentKey + '/down'] = snapshot.val().down + 1
+                    firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up, this.state.post.down + 1)
                 break;
@@ -112,8 +113,7 @@ class Browse extends React.Component {
                 break;
         }
 
-        firebase.database().ref().update(updates)
-        this.setState({ showResult: !this.state.showResult })
+        this.setState({ showResult: !this.state.showResult, loading: false })
     }
 
     updatePercentage(up, down){
