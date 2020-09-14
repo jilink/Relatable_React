@@ -7,7 +7,8 @@ import { Line } from 'rc-progress';
 import { I18nProvider, LOCALES } from '../i18n';
 import translate from '../i18n/translate';
 
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'; 
 import config from '../config'
 
 class Browse extends React.Component {
@@ -30,7 +31,7 @@ class Browse extends React.Component {
         this.currentKey='';
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const ref = firebase.database().ref(this.path)
         this.findPost(ref)
     }
