@@ -3,6 +3,7 @@ import '../App.css';
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Line } from 'rc-progress';
+import ReactLoading from 'react-loading';
 
 import { I18nProvider, LOCALES } from '../i18n';
 import translate from '../i18n/translate';
@@ -18,6 +19,7 @@ class Browse extends React.Component {
             showResult: false,
             percentage: 0,
             loading: true,
+            textLoading: false,
         };
 
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
@@ -75,6 +77,7 @@ class Browse extends React.Component {
                     this.setState({
                         post: post,
                         loading: false,
+                        textLoading: false,
                     })
                 }
             })
@@ -106,6 +109,7 @@ class Browse extends React.Component {
             case 'next':
                 this.setState({
                     percentage: 0,
+                    textLoading: true,
                 })
                 this.findPost(ref)
                 break;
@@ -135,7 +139,11 @@ class Browse extends React.Component {
     render(){
         if (this.state.loading){
             return (
-                <div> chargement en cours </div>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <ReactLoading type="cylon" color="#61dafb" height={'80vh'} width={'80vh'} />
+                    </Row>
+                </Container>
             )
         }
         return (
@@ -147,6 +155,9 @@ class Browse extends React.Component {
                         </Col>
                         </Row>
                             <Card className="mt-5">
+                                {this.state.textLoading?
+                                <ReactLoading className="align-self-center m-3" type="spin" color="#61dafb" />
+                                :
                                 <Card.Body>
                                     <blockquote className="blockquote mb-0">
                                         <p className="text-center">
@@ -157,6 +168,7 @@ class Browse extends React.Component {
                                         </footer>
                                     </blockquote>
                                 </Card.Body>
+                                }
                             </Card>
                             <div className="justify-content-md-center mt-5 w-25 m-auto">
                                 <Line percent={this.state.percentage} strokeWidth="4" strokeColor="#17a2b8" /> 
