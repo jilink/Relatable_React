@@ -1,12 +1,13 @@
 import React from 'react';
 import '../App.css';
 
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
 
 import { I18nProvider, LOCALES } from '../i18n';
 import translate from '../i18n/translate';
 
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database';
 import config from '../config'
 
 class Create extends React.Component {
@@ -16,6 +17,8 @@ class Create extends React.Component {
         this.state = {
             relatableText: '',
             username: 'Anonymous Genius',
+            success: false,
+            failure: false,
         };
 
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -44,21 +47,26 @@ class Create extends React.Component {
     handleSubmit(event) {
         const today = new Date();
         const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        firebase.database().ref(this.locale +'/' + this.category ).push().set({
-            username: this.state.username,
-            text: this.state.relatableText,
-            up: 0,
-            down: 0,
-            date: date,
-            timestamp: Date.now(),
-            id: Math.random().toString(36).substr(2, 9),
-        })
-        .then((doc) => {
-            window.location.reload(false);
-        })
-        .catch((error) => {
-                console.error(error);
-        })
+        if (!this.state.relatableText){
+            this.setState({failure: true, success: false, relatableText: ''})
+        }
+        else {
+            firebase.database().ref(this.locale +'/' + this.category ).push().set({
+                username: this.state.username,
+                text: this.state.relatableText,
+                up: 0,
+                down: 0,
+                date: date,
+                timestamp: Date.now(),
+                id: Math.random().toString(36).substr(2, 9),
+            })
+                .then((doc) => {
+                    this.setState({success: true, failure:false, relatableText: ''})
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        }
 
         event.preventDefault();
     }
@@ -66,6 +74,16 @@ class Create extends React.Component {
     render() {
         return (
             <I18nProvider locale={this.locale}>
+            {this.state.success ?
+                    <Alert variant="success" className="text-center">
+                        {translate("sent")}
+                    </Alert>
+            : null}
+            {this.state.failure ?
+                    <Alert variant="danger" className="text-center">
+                        {translate("failure")}
+                    </Alert>
+            : null}
                 <Container className="mt-5">
                     <Row className="justify-content-md-center mb-5">
                         <Col md="auto">
@@ -76,7 +94,7 @@ class Create extends React.Component {
                         <Row className="d-flex justify-content-md-center">
                             <Col sm={7} className="my-1">
                                 <Form.Group>
-                                    <Form.Control placeholder="This text is so relatable" maxLength="200" as="textarea" rows="3" value={this.state.relatableText} onChange={this.handleChangeText} />
+                                    <Form.Control maxLength="200" as="textarea" rows="3" value={this.state.relatableText} onChange={this.handleChangeText} />
                                 </Form.Group>
                             </Col>
                         </Row>

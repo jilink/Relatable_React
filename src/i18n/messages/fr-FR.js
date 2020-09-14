@@ -13,5 +13,7 @@ export default {
         'submit': 'Valider',
         'next': 'Suivant',
         'percentage': '{percentage}% ({number}) des gens ont trouvé que ça leur ressemblait !',
+        'sent': 'Félicitations, votre texte a bien été envoyé !',
+        'failure': 'Erreur, s\'identifier au vide est un peu trop terifiant ...',
     }
 }
