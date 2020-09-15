@@ -23,8 +23,8 @@ function App() {
                 </Row>
                 <Row className="justify-content-md-center mt-5">
                     <Col md="auto">
-                          <Button size="lg" variant="success" href="/browse">{translate("browse")}</Button>{' '}
-                          <Button size="lg" variant="info" href="/create">{translate("create")}</Button>{' '}
+                          <Button className="m-3" size="lg" variant="success" href="/browse">{translate("browse")}</Button>{' '}
+                          <Button className="m-3" size="lg" variant="info" href="/create">{translate("create")}</Button>{' '}
                     </Col>
                 </Row>
             </Container>
