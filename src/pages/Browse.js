@@ -69,7 +69,6 @@ class Browse extends React.Component {
                         post = data;
                         const stored_keys = JSON.parse(localStorage.getItem("stored_keys"))
                         if (stored_keys && stored_keys.includes(this.currentKey)) {
-                            console.log("yesssss", stored_keys)
                             this.updatePercentage(post.up, post.down)
                             this.setState({ showResult: true })
                         }
@@ -94,6 +93,12 @@ class Browse extends React.Component {
     
     }
 
+    storeKey(){
+        let stored_keys = JSON.parse(localStorage.getItem("stored_keys")) || []
+        stored_keys.push(this.currentKey)
+        localStorage.setItem("stored_keys", JSON.stringify(stored_keys));
+    }
+
 
     handleClick(type) {
         this.setState({loading: true})
@@ -107,6 +112,7 @@ class Browse extends React.Component {
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up + 1, this.state.post.down)
+                this.storeKey()
                 this.setState({ showResult: true })
                 break;
             case 'down':
@@ -115,9 +121,7 @@ class Browse extends React.Component {
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up, this.state.post.down + 1)
-                let stored_keys = JSON.parse(localStorage.getItem("stored_keys")) || []
-                stored_keys.push(this.currentKey)
-                localStorage.setItem("stored_keys", JSON.stringify(stored_keys));
+                this.storeKey()
                 this.setState({ showResult: true })
                 break;
             case 'next':
