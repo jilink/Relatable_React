@@ -67,6 +67,15 @@ class Browse extends React.Component {
                         this.keys.push(snap.key)
                         this.currentKey = snap.key
                         post = data;
+                        const stored_keys = JSON.parse(localStorage.getItem("stored_keys"))
+                        if (stored_keys && stored_keys.includes(this.currentKey)) {
+                            console.log("yesssss", stored_keys)
+                            this.updatePercentage(post.up, post.down)
+                            this.setState({ showResult: true })
+                        }
+                        else {
+                            this.setState({ showResult: false, })
+                        }
                     }
                 })
                 if (!post) {
@@ -98,6 +107,7 @@ class Browse extends React.Component {
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up + 1, this.state.post.down)
+                this.setState({ showResult: true })
                 break;
             case 'down':
                 postRef.once('value', snapshot => {
@@ -105,22 +115,28 @@ class Browse extends React.Component {
                     firebase.database().ref().update(updates)
                 })
                 this.updatePercentage(this.state.post.up, this.state.post.down + 1)
+                let stored_keys = JSON.parse(localStorage.getItem("stored_keys")) || []
+                stored_keys.push(this.currentKey)
+                localStorage.setItem("stored_keys", JSON.stringify(stored_keys));
+                this.setState({ showResult: true })
                 break;
             case 'next':
                 this.setState({
                     percentage: 0,
                     textLoading: true,
+                    showResult: false,
                 })
                 this.findPost(ref)
                 break;
             default:
                 this.setState({
                     loading: false,
+                    showResult: true,
                 })
                 break;
         }
 
-        this.setState({ showResult: !this.state.showResult, loading: false })
+        this.setState({ loading: false })
     }
 
     updatePercentage(up, down){
@@ -129,7 +145,6 @@ class Browse extends React.Component {
             percentage = Math.round(up / (up + down) * 100)
         }
         this.setState({
-            showResult: !this.state.showResult,
             percentage: percentage,
             up: up,
         })
@@ -176,8 +191,8 @@ class Browse extends React.Component {
             {!this.state.showResult ? (
                             <Row className="justify-content-md-center mt-5">
                                 <Col md="auto">
-                                    <Button size="lg" variant="info" className="mr-5" onClick={() => this.handleClick('up')}>{translate("so_relatable")}</Button>{' '}
-                                    <Button size="lg" variant="danger" onClick={() => this.handleClick('down')}>{translate("not_relatable")}</Button>{' '}
+                                    <Button size="lg" variant="info" className="mr-5" onClick={() => this.handleClick('up')} disabled={this.state.textLoading}>{translate("so_relatable")}</Button>{' '}
+                                    <Button size="lg" variant="danger" onClick={() => this.handleClick('down')} disabled={this.state.textLoading}>{translate("not_relatable")}</Button>{' '}
                                 </Col>
                             </Row>
                     ) : (
