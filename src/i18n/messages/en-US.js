@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 export default {
     [LOCALES.ENGLISH]: {
         'login': 'Login',
+        'signup': 'Sign up',
         'swaplang': 'Essayer la version française',
         'connected': 'You are connected as {name}',
         'catchphrase': 'You\'re not the only one',

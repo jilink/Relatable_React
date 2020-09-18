@@ -24,7 +24,10 @@ function MainNavbar(){
             <Navbar bg="light" variant="light">
                 <Navbar.Brand href="/" className="logo">RELATABLE</Navbar.Brand>
                 <Nav className="ml-auto">
-                    <Nav.Link href="/" onClick={swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
+                  <Nav.Link href="/login">{translate("login")}</Nav.Link>
+                  <Nav.Link href="/signup">{translate("signup")}</Nav.Link>
+                  <Nav.Link className="text-secondary" href="/create">{translate("create")}</Nav.Link>
+                  <Nav.Link href="/" onClick={swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
                 </Nav>
             </Navbar>
         </I18nProvider>
