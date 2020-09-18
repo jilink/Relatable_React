@@ -159,7 +159,7 @@ class Browse extends React.Component {
         if (this.state.loading){
             return (
                 <Container>
-                    <Row className="justify-content-md-center">
+                    <Row className="justify-content-center">
                         <ReactLoading type="cylon" color="#61dafb" height={'80vh'} width={'80vh'} />
                     </Row>
                 </Container>
@@ -168,8 +168,8 @@ class Browse extends React.Component {
         return (
             <I18nProvider locale={this.locale}>
                 <Container className="mt-5">
-                    <Row className="justify-content-md-center">
-                        <Col md="auto">
+                    <Row className="justify-content-center">
+                        <Col xs="auto">
                             <h2 className="text-info">{translate("relatable?")}</h2>
                         </Col>
                         </Row>
@@ -189,26 +189,26 @@ class Browse extends React.Component {
                                 </Card.Body>
                                 }
                             </Card>
-                            <div className="justify-content-md-center mt-5 w-25 m-auto">
+                            <div className="justify-content-center mt-5 w-25 m-auto">
                                 <Line percent={this.state.percentage} strokeWidth="4" strokeColor="#17a2b8" /> 
                             </div>
             {!this.state.showResult ? (
-                            <Row className="justify-content-md-center mt-5">
-                                <Col md="auto">
-                                    <Button size="lg" variant="info" className="mr-5" onClick={() => this.handleClick('up')} disabled={this.state.textLoading}>{translate("so_relatable")}</Button>{' '}
-                                    <Button size="lg" variant="danger" onClick={() => this.handleClick('down')} disabled={this.state.textLoading}>{translate("not_relatable")}</Button>{' '}
+                            <Row className="justify-content-center mt-5">
+                                <Col xs="auto">
+                                    <Button variant="info" className="mr-5" onClick={() => this.handleClick('up')} disabled={this.state.textLoading}>{translate("so_relatable")}</Button>{' '}
+                                    <Button variant="danger" onClick={() => this.handleClick('down')} disabled={this.state.textLoading}>{translate("not_relatable")}</Button>{' '}
                                 </Col>
                             </Row>
                     ) : (
                             <div> 
-                                <Row className="justify-content-md-center mt-1">
-                                    <Col md="auto">
-                                        <small className="text-success justify-content-md-center">{translate('percentage', {'percentage': this.state.percentage, 'number': this.state.up})}</small>
+                                <Row className="justify-content-center mt-1">
+                                    <Col xs="auto">
+                                        <small className="text-primary justify-content-center">{translate('percentage', {'percentage': this.state.percentage, 'number': this.state.up})}</small>
                                     </Col>
                                 </Row>
-                                <Row className="justify-content-md-center mt-3">
-                                    <Col md="auto">
-                                        <Button size="lg" variant="info" onClick={() => this.handleClick('next')}>{translate("next")}</Button>{' '}
+                                <Row className="justify-content-center mt-3">
+                                    <Col xs="auto">
+                                        <Button variant="info" onClick={() => this.handleClick('next')}>{translate("next")}</Button>{' '}
                                     </Col>
                                 </Row>
                             </div>

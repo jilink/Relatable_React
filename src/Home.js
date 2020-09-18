@@ -11,18 +11,18 @@ function App() {
     return (
         <I18nProvider locale={locale}>
             <Container className="mt-5">
-                <Row className="justify-content-md-center">
-                    <Col md="auto">
+                <Row className="justify-content-center">
+                    <Col xs="auto">
                         <h1 className="logo"> RELATABLE </h1>
                     </Col>
                 </Row>
-                <Row className="justify-content-md-center">
-                    <Col md="auto">
+                <Row className="justify-content-center">
+                    <Col xs="auto">
                         <h5 className="catchphrase">{translate("catchphrase")}</h5>
                     </Col>
                 </Row>
-                <Row className="justify-content-md-center mt-5">
-                    <Col md="auto">
+                <Row className="justify-content-center mt-5">
+                    <Col xs="auto">
                           <Button className="m-3" size="lg" variant="success" href="/browse">{translate("browse")}</Button>{' '}
                           <Button className="m-3" size="lg" variant="info" href="/create">{translate("create")}</Button>{' '}
                     </Col>

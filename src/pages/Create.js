@@ -85,20 +85,20 @@ class Create extends React.Component {
                     </Alert>
             : null}
                 <Container className="mt-5">
-                    <Row className="justify-content-md-center mb-5">
-                        <Col md="auto">
+                    <Row className="justify-content-center mb-5">
+                        <Col xs="auto">
                             <h2 className="text-info">{translate("create")}</h2>
                         </Col>
                     </Row>
                     <Form onSubmit={this.handleSubmit}>
-                        <Row className="d-flex justify-content-md-center">
+                        <Row className="d-flex justify-content-center">
                             <Col sm={7} className="my-1">
                                 <Form.Group>
                                     <Form.Control maxLength="200" as="textarea" rows="3" value={this.state.relatableText} onChange={this.handleChangeText} />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row className="d-flex justify-content-md-center">
+                        <Row className="d-flex justify-content-center">
                             <Col sm={4} className="my-1">
                                 <Form.Control className="mb-2" md="4" maxLength="40" value={this.state.username} onChange={this.handleChangeUsername} />
                             </Col>
