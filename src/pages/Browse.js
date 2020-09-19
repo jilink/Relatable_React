@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import Post from '../components/Post';
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Line } from 'rc-progress';
@@ -173,25 +174,8 @@ class Browse extends React.Component {
                             <h2 className="text-info">{translate("relatable?")}</h2>
                         </Col>
                         </Row>
-                            <Card className="mt-5">
-                                {this.state.textLoading?
-                                <ReactLoading className="align-self-center m-3" type="spin" color="#61dafb" />
-                                :
-                                <Card.Body>
-                                    <blockquote className="blockquote mb-0">
-                                        <p className="text-center">
-                                            {this.state.post.text}
-                                        </p>
-                                        <footer className="blockquote-footer">
-                                            <cite title="Source Title">{this.state.post.username}</cite>
-                                        </footer>
-                                    </blockquote>
-                                </Card.Body>
-                                }
-                            </Card>
-                            <div className="justify-content-center mt-5 w-25 m-auto">
-                                <Line percent={this.state.percentage} strokeWidth="4" strokeColor="#17a2b8" /> 
-                            </div>
+                        <Post post={this.state.post} textLoading={this.state.textLoading} percentage={this.state.percentage} up={this.state.up} />
+
             {!this.state.showResult ? (
                             <Row className="justify-content-center mt-5">
                                 <Col xs="auto">
@@ -201,11 +185,6 @@ class Browse extends React.Component {
                             </Row>
                     ) : (
                             <div> 
-                                <Row className="justify-content-center mt-1">
-                                    <Col xs="auto">
-                                        <small className="text-primary justify-content-center">{translate('percentage', {'percentage': this.state.percentage, 'number': this.state.up})}</small>
-                                    </Col>
-                                </Row>
                                 <Row className="justify-content-center mt-3">
                                     <Col xs="auto">
                                         <Button variant="info" onClick={() => this.handleClick('next')}>{translate("next")}</Button>{' '}
