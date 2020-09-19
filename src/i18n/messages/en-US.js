@@ -16,5 +16,10 @@ export default {
         'percentage': '{percentage}% ({number}) of people thought this was relatable!',
         'sent': 'Congratulations, your post has been submited!',
         'failure': 'Something went wrong, empty space is too relatable',
+        'auth/wrong-password': 'Wrong password',
+        'auth/invalid-email': 'Invalid email',
+        'auth/user-not-found': 'User not found',
+        'Email address': 'Email adress',
+        'Password': 'Password',
     }
 }

@@ -16,5 +16,11 @@ export default {
         'percentage': '{percentage}% ({number}) des gens ont trouvé que ça leur ressemblait !',
         'sent': 'Félicitations, votre texte a bien été envoyé !',
         'failure': 'Erreur, s\'identifier au vide est un peu trop terifiant ...',
+        'auth/wrong-password': 'Mot de passe invalide',
+        'auth/invalid-email': 'Adresse mail invalide',
+        'auth/user-not-found': 'Compte non trouvé',
+        'Email address': 'Adresse e-mail',
+        'Password': 'Mot de passe',
+
     }
 }
