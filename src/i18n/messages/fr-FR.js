@@ -2,6 +2,7 @@ import { LOCALES } from '../locales';
 export default {
     [LOCALES.FRENCH]: {
         'login': 'Connexion',
+        'logout': 'Déconnexion',
         'signup': 'Inscription',
         'swaplang': 'Try English version',
         'connected': 'You are connected as {name}',
@@ -19,6 +20,8 @@ export default {
         'auth/wrong-password': 'Mot de passe invalide',
         'auth/invalid-email': 'Adresse mail invalide',
         'auth/user-not-found': 'Compte non trouvé',
+        'auth/email-already-in-use': 'E-mail déjà utilisé',
+        'auth/weak-password': 'Mot de passe trop faible',
         'Email address': 'Adresse e-mail',
         'Password': 'Mot de passe',
 

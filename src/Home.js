@@ -14,35 +14,7 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
-        this.state = {
-            user: {},
-        }
-        if (!firebase.apps.length) {
-            firebase.initializeApp(config)
-        }
     }
-
-    componentDidMount(){
-        this.authListener();
-    }
-
-    authListener(){
-        firebase.auth().onAuthStateChanged((user) => {
-            console.log("user", user)
-            if (user) {
-                const update = {
-                    displayName: 'JimmyLeBg',
-                };
-                firebase.auth().currentUser.updateProfile(update);
-                this.setState({user})
-            }
-            else {
-                this.setState({user : null})
-            }
-                
-        })
-    }
-    
 
     render() {
         return (
@@ -64,12 +36,6 @@ class App extends React.Component {
                               <Button className="m-3" size="lg" variant="info" href="/create">{translate("create")}</Button>{' '}
                         </Col>
                     </Row>
-                {this.state.user ?
-                        <div> il y a bien un user {this.state.user.displayName} </div>
-                        :
-                        <div> il y a paaaas un user </div>
-                
-                }
                 </Container>
             </I18nProvider>
         );

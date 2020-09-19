@@ -40,10 +40,8 @@ class Login extends React.Component {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .then((u) => {
             this.props.history.push('/');
-            console.log("ici")
         }).catch((error) => {
             this.setState({failure: error.code})
-            console.log(error)
         });
     }
 

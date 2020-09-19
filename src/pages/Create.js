@@ -9,16 +9,19 @@ import translate from '../i18n/translate';
 import firebase from 'firebase/app'
 import 'firebase/database';
 import config from '../config'
+import 'firebase/auth';
 
 class Create extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            user: {},
             relatableText: '',
             username: 'Anonymous Genius',
             success: false,
             failure: false,
+            id: Math.random().toString(36).substr(2, 9),
         };
 
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -30,6 +33,25 @@ class Create extends React.Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         }
+    }
+
+    componentDidMount(){
+        this.authListener();
+    }
+
+    authListener(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    user,
+                    username: user.displayName,
+                    id: user.uid
+                })
+            }
+            else {
+                this.setState({user : null})
+            }
+        })
     }
 
     handleChangeText(event) {
@@ -58,7 +80,7 @@ class Create extends React.Component {
                 down: 0,
                 date: date,
                 timestamp: Date.now(),
-                id: Math.random().toString(36).substr(2, 9),
+                id: this.state.id,
             })
                 .then((doc) => {
                     this.setState({success: true, failure:false, relatableText: ''})
