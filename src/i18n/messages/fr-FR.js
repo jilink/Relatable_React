@@ -4,11 +4,14 @@ export default {
         'login': 'Connexion',
         'logout': 'Déconnexion',
         'signup': 'Inscription',
+        'signuporlogin': 'Inscris toi ou connecte toi pour suivre l\'évolution de tes textes',
         'swaplang': 'Try English version',
         'connected': 'You are connected as {name}',
         'catchphrase': 'Vous n\'êtes pas le seul',
         'browse': 'Parcourir',
         'create': 'Créer',
+        'Profile': 'Profil',
+        'no posts': 'Vous n\'avez fait aucun post dans cette langue',
         'relatable?': 'Est-ce que ça vous ressemble ?',
         'so_relatable': 'Trop vrai !',
         'not_relatable': 'bof bof ...',
@@ -23,6 +26,7 @@ export default {
         'auth/email-already-in-use': 'E-mail déjà utilisé',
         'auth/weak-password': 'Mot de passe trop faible',
         'Email address': 'Adresse e-mail',
+        'username': 'Pseudo',
         'Password': 'Mot de passe',
 
     }

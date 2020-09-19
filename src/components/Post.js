@@ -1,7 +1,6 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
 import '../App.css';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { Line } from 'rc-progress';
 import ReactLoading from 'react-loading';
 

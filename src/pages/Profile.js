@@ -2,7 +2,8 @@ import React from 'react';
 import '../App.css';
 import Post from '../components/Post';
 
-import { Container, Row, Col, Button, Form, Alert} from 'react-bootstrap';
+import ReactLoading from 'react-loading';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import { I18nProvider, LOCALES } from '../i18n';
 import translate from '../i18n/translate';
@@ -19,6 +20,7 @@ class Profile extends React.Component {
         this.state = {
             user: {},
             posts: [],
+            loading: true,
         };
 
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
@@ -60,12 +62,20 @@ class Profile extends React.Component {
     userPosts(uid) {
         const ref = firebase.database().ref(this.path)
         ref.orderByChild('id').equalTo(uid).on("value", function(snapshot) {
-            this.setState({posts: this.snapshotToArray(snapshot)})
-            console.log(this.state.posts)
+            this.setState({posts: this.snapshotToArray(snapshot), loading: false})
         }.bind(this));
     }
 
     render() {
+        if (this.state.loading){
+            return (
+                <Container>
+                    <Row className="justify-content-center">
+                        <ReactLoading type="cylon" color="#61dafb" height={'80vh'} width={'80vh'} />
+                    </Row>
+                </Container>
+            )
+        }
         return (
             <I18nProvider locale={this.locale}>
                 <Container className="mt-5">
@@ -74,7 +84,7 @@ class Profile extends React.Component {
                             <h2 className="text-info">{translate("Profile")}</h2>
                         </Col>
                     </Row>
-                {this.state.posts ?
+                {this.state.posts.length ?
                         <div>
                             {this.state.posts.map((post) => {
                                 return <Post key={post.key} post={post} computePercentage={true} up={post.up} />
@@ -84,7 +94,10 @@ class Profile extends React.Component {
                 :
                     <Row className="justify-content-center mb-5">
                         <Col xs="auto">
-                            <h2 className="text-info">{translate("No posts")}</h2>
+                            <h4>
+                            {translate("no posts")},
+                            <a variant="secondary" href="/create"> {translate("create")}</a>
+                            </h4>
                         </Col>
                     </Row>
                 

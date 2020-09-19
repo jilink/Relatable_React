@@ -14,12 +14,14 @@ class MainNavbar extends React.Component {
         super(props);
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
         this.logout = this.logout.bind(this)
+        this.swapLanguage = this.swapLanguage.bind(this)
         this.state = {
             user: {},
         }
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         }
+        console.ignoredYellowBox = ['Warning: findDOMNode']
     }
 
     componentDidMount(){
@@ -57,23 +59,26 @@ class MainNavbar extends React.Component {
     render(){
         return (
             <I18nProvider locale={this.locale}>
-                <Navbar bg="light" variant="light">
+                <Navbar bg="light" variant="light" expand="md">
                     <Navbar.Brand href="/" className="logo">RELATABLE</Navbar.Brand>
-                    {this.state.user ?
-                    <Nav className="ml-auto">
-                      <Nav.Link href="/profile">{this.state.user.displayName}</Nav.Link>
-                      <Nav.Link onClick={this.logout}>{translate("logout")}</Nav.Link>
-                      <Nav.Link className="text-secondary" href="/create">{translate("create")}</Nav.Link>
-                      <Nav.Link href="/" onClick={this.swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
-                    </Nav>
-                    :
-                    <Nav className="ml-auto">
-                      <Nav.Link href="/login">{translate("login")}</Nav.Link>
-                      <Nav.Link href="/signup">{translate("signup")}</Nav.Link>
-                      <Nav.Link className="text-secondary" href="/create">{translate("create")}</Nav.Link>
-                      <Nav.Link href="/" onClick={this.swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
-                    </Nav>
-                    }
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        {this.state.user ?
+                        <Nav className="ml-auto">
+                          <Nav.Link href="/profile">{this.state.user.displayName}</Nav.Link>
+                          <Nav.Link onClick={this.logout}>{translate("logout")}</Nav.Link>
+                          <Nav.Link className="text-secondary" href="/create">{translate("create")}</Nav.Link>
+                          <Nav.Link href="/" onClick={this.swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
+                        </Nav>
+                        :
+                        <Nav className="ml-auto">
+                          <Nav.Link href="/login">{translate("login")}</Nav.Link>
+                          <Nav.Link href="/signup">{translate("signup")}</Nav.Link>
+                          <Nav.Link className="text-secondary" href="/create">{translate("create")}</Nav.Link>
+                          <Nav.Link href="/" onClick={this.swapLanguage} className="text-info">{translate("swaplang")}</Nav.Link>
+                        </Nav>
+                        }
+                    </Navbar.Collapse>
                 </Navbar>
             </I18nProvider>
         );

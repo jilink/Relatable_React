@@ -55,15 +55,31 @@ class Login extends React.Component {
                 <Container className="mt-5">
                     <Form onSubmit={this.login}>
                         <Form.Group controlId="formGroupEmail">
-                            <Form.Label>{translate('Email address')}</Form.Label>
-                            <Form.Control name="email" value={this.state.email} onChange={this.handleChange} type="email" autoComplete="on" required/>
+                            <Row className="justify-content-center">
+                                <Col md="6">
+                                    <Form.Label>{translate('Email address')}</Form.Label>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col md="6">
+                                    <Form.Control name="email" value={this.state.email} onChange={this.handleChange} type="email" autoComplete="on" required/>
+                                </Col>
+                            </Row>
                         </Form.Group>
                         <Form.Group controlId="formGroupPassword">
-                            <Form.Label>{translate("Password")}</Form.Label>
-                            <Form.Control name= "password" value={this.state.password} onChange={this.handleChange} type="password" autoComplete="on" required/>
+                            <Row className="justify-content-center">
+                                <Col md="6">
+                                    <Form.Label>{translate("Password")}</Form.Label>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col md="6">
+                                    <Form.Control name= "password" value={this.state.password} onChange={this.handleChange} type="password" autoComplete="on" required/>
+                                </Col>
+                            </Row>
                         </Form.Group>
                         <Row>
-                            <Col sm={3} className="my-1">
+                            <Col className="my-1 text-center">
                                 <Button type="submit">{translate("login")}</Button>
                             </Col>
                         </Row>

@@ -2,8 +2,7 @@ import React from 'react';
 import '../App.css';
 import Post from '../components/Post';
 
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { Line } from 'rc-progress';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
 
 import { I18nProvider, LOCALES } from '../i18n';
