@@ -10,6 +10,7 @@ import Create from '../pages/Create';
 import Browse from '../pages/Browse';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
+import Profile from '../pages/Profile';
 import MainNavbar from '../components/MainNavbar';
 
 function MainRoute() {
@@ -33,6 +34,9 @@ function MainRoute() {
                     </Route>
                     <Route path="/signup">
                         <Signup />
+                    </Route>
+                    <Route path="/profile">
+                        <Profile />
                     </Route>
                 </Switch>
             </div>

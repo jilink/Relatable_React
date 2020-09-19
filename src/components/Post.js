@@ -12,6 +12,28 @@ class Post extends React.Component {
     constructor(props){
         super(props);
         this.locale = localStorage.getItem('locale') || LOCALES.ENGLISH;
+        this.state = {
+            percentage: this.props.percentage,
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.computePercentage) {
+            this.updatePercentage()
+        }
+    }
+
+    updatePercentage(){
+        const up = this.props.post.up
+        const down = this.props.post.down
+        let percentage = up + down
+        if (percentage) {
+            percentage = Math.round(up / (up + down) * 100)
+        }
+        this.setState({
+            percentage: percentage,
+        })
+    
     }
 
     render(){
@@ -34,12 +56,12 @@ class Post extends React.Component {
                     }
                 </Card>
                 <div className="justify-content-center mt-5 w-25 m-auto">
-                    <Line percent={this.props.percentage} strokeWidth="4" strokeColor="#17a2b8" /> 
+                    <Line percent={this.state.percentage} strokeWidth="4" strokeColor="#17a2b8" /> 
                 </div>
-                {this.props.percentage ?
+                {this.state.percentage ?
                 <Row className="justify-content-center mt-1">
                     <Col xs="auto">
-                        <small className="text-primary justify-content-center">{translate('percentage', {'percentage': this.props.percentage, 'number': this.props.up})}</small>
+                        <small className="text-primary justify-content-center">{translate('percentage', {'percentage': this.state.percentage, 'number': this.props.up})}</small>
                     </Col>
                 </Row>
                 : null}

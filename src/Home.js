@@ -6,10 +6,6 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { I18nProvider, LOCALES } from './i18n';
 import translate from './i18n/translate';
 
-import config from './config'
-import firebase from 'firebase/app'
-import 'firebase/auth';
-
 class App extends React.Component {
     constructor(props){
         super(props);

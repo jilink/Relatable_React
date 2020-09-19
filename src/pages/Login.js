@@ -9,7 +9,6 @@ import translate from '../i18n/translate';
 
 import config from '../config'
 import firebase from 'firebase/app'
-import 'firebase/database';
 
 class Login extends React.Component {
 
